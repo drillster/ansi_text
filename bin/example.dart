@@ -1,25 +1,41 @@
-// ignore_for_file: avoid_print
+import 'dart:io';
 
 import 'package:ansi_text/ansi_text.dart';
 
 void main() {
-  print(AnsiText('The quick brown fox')
-    ..bold()
-    ..lightYellow()
-    ..blink());
-  print(AnsiText('Hello')
-    ..apply(Styles.bgRed)
-    ..apply(Styles.lightGray));
-  print(AnsiText('Also hello')..applyAll({Styles.bgRed, Styles.lightGray}));
+  stdout
+    ..writeln(AnsiText('The terminal color chart')
+      ..bold()
+      ..lightYellow()
+      ..blink())
+    ..writeln(AnsiText('Hello')
+      ..apply(Styles.bgRed)
+      ..apply(Styles.lightGray))
+    ..writeln(
+        AnsiText('Also hello')..applyAll({Styles.bgRed, Styles.lightGray}));
 
   for (var r = 0; r <= 5; r++) {
     for (var g = 0; g <= 5; g++) {
       for (var b = 0; b <= 5; b++) {
-        print(AnsiText(' Color $r $g $b ')
-          ..color(r, g, b)
-          ..background(5 - r, 5 - g, 5 - b)
-          ..bold());
+        stdout
+          ..write(AnsiText(' Color $r $g $b ')
+            ..background(r, g, b)
+            ..color(5 - r, 5 - g, 5 - b)
+            ..bold())
+          ..write('  ');
       }
+      stdout.writeln();
     }
   }
+  stdout.writeln();
+
+  for (var i = 0; i <= 5; i++) {
+    stdout
+      ..write(AnsiText(' Gray $i $i $i  ')
+        ..background(i, i, i)
+        ..color(5 - i, 5 - i, 5 - i)
+        ..italic())
+      ..write('  ');
+  }
+  stdout.writeln();
 }
