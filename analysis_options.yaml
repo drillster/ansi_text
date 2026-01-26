@@ -1,0 +1,10 @@
+include: package:drillster_analysis_options/analysis_options.yaml
+
+linter:
+  rules:
+    # these exclusions should be removed in due time
+    public_member_api_docs: false
+
+analyzer:
+  errors:
+    invalid_dependency: ignore
