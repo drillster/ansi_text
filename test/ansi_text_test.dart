@@ -38,8 +38,8 @@ void main() {
       expect(text.toString(), '\x1B[36mtext\x1B[0m');
     });
 
-    test('light gray', () {
-      final text = AnsiText('text')..lightGray();
+    test('white', () {
+      final text = AnsiText('text')..white();
       expect(text.toString(), '\x1B[37mtext\x1B[0m');
     });
   });

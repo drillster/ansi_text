@@ -1,6 +1,5 @@
-part of ansi_text;
-
-/// The collection of styles.
+/// Represents the collection of styles that may be applied to an `AnsiText`
+/// object.
 class Styles {
   static const markup = _Markup();
   static const color = _Color();
@@ -14,17 +13,10 @@ class _Markup {
   Style get faint => const Style('2');
   Style get italic => const Style('3');
   Style get underline => const Style('4');
-  _Blink get blink => const _Blink();
+  Style get blinking => const Style('5');
   Style get inverted => const Style('7');
   Style get concealed => const Style('8');
   Style get strikethrough => const Style('9');
-}
-
-class _Blink {
-  const _Blink();
-
-  Style get slow => const Style('5');
-  Style get fast => const Style('6');
 }
 
 class _Color {
@@ -37,8 +29,6 @@ class _Color {
 class _Background {
   const _Background();
 
-  Style get normal => const Style('49');
-
   Style get black => const Style('40');
   Style get red => const Style('41');
   Style get green => const Style('42');
@@ -49,11 +39,21 @@ class _Background {
   Style get white => const Style('47');
   _BrightBg get bright => const _BrightBg();
 
+  Style get normal => const Style('49');
+
+  /// Use an 8-bit color from the given [r], [g] and [b] values. Each component
+  /// value must be between 0 and 5 (inclusive).
   Style rgb(int r, int g, int b) =>
       Style('48;5;${_calculateColorCode(r, g, b)}');
 
+  /// Use a grayscale color with a [lightness] between 0 and 23 (inclusive).
   Style gray(int lightness) =>
       Style('48;5;${_calculateGrayscaleCode(lightness)}');
+
+  /// Use a 24-bit color from the given [r], [g] and [b] values. Each component
+  /// value must be between 0 and 255 (inclusive).
+  Style trueColor(int r, int g, int b) =>
+      Style('48;2;${r.clamp(0, 255)};${g.clamp(0, 255)};${b.clamp(0, 255)}');
 }
 
 class _BrightBg {
@@ -72,8 +72,6 @@ class _BrightBg {
 class _Text {
   const _Text();
 
-  Style get normal => const Style('39');
-
   Style get black => const Style('30');
   Style get red => const Style('31');
   Style get green => const Style('32');
@@ -82,13 +80,24 @@ class _Text {
   Style get magenta => const Style('35');
   Style get cyan => const Style('36');
   Style get white => const Style('37');
+
   _BrightFg get bright => const _BrightFg();
 
+  Style get normal => const Style('39');
+
+  /// Use an 8-bit color from the given [r], [g] and [b] values. Each component
+  /// value must be between 0 and 5 (inclusive).
   Style rgb(int r, int g, int b) =>
       Style('38;5;${_calculateColorCode(r, g, b)}');
 
+  /// Use a grayscale color with a [lightness] between 0 and 23 (inclusive).
   Style gray(int lightness) =>
       Style('38;5;${_calculateGrayscaleCode(lightness)}');
+
+  /// Use a 24-bit color from the given [r], [g] and [b] values. Each component
+  /// value must be between 0 and 255 (inclusive).
+  Style trueColor(int r, int g, int b) =>
+      Style('38;2;${r.clamp(0, 255)};${g.clamp(0, 255)};${b.clamp(0, 255)}');
 }
 
 class _BrightFg {
@@ -123,6 +132,6 @@ int _calculateColorCode(int r, int g, int b) =>
 
 /// Calculates the 256-color color code for the given grayscale value. This
 /// value must be between 0 and 23, where 0 is the darkest and 23 the
-/// lightest. Black comes before grayscale 0 and bright white comes after
-/// grayscale 23.
+/// lightest. On most terminals, black comes before grayscale value 0 and bright
+/// white comes after grayscale value 23.
 int _calculateGrayscaleCode(int grayscale) => 232 + grayscale.clamp(0, 23);

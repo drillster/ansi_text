@@ -1,4 +1,5 @@
 library ansi_text;
 
-part 'src/styles.dart';
-part 'src/ansi_text.dart';
+export 'src/ansi_text.dart';
+export 'src/extensions.dart';
+export 'src/styles.dart';

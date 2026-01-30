@@ -4,27 +4,88 @@ import 'package:ansi_text/ansi_text.dart';
 
 void main() {
   stdout
-    ..writeln(AnsiText('The ANSI Terminal color chart')..bold())
+    ..writeln(AnsiText('AnsiText example page')..bold())
+    ..writeln()
+
+    // Text markup options
+    ..writeln('Text markup:')
+    ..write(' - ')
+    ..writeln(AnsiText('Bold')..bold())
+    ..write(' - ')
+    ..writeln(AnsiText('Faint')..faint())
+    ..write(' - ')
+    ..writeln(AnsiText('Italic')..italic())
+    ..write(' - ')
+    ..writeln(AnsiText('Bold italic')
+      ..bold()
+      ..italic())
+    ..write(' - ')
+    ..writeln(AnsiText('Underline')..underline())
+    ..write(' - ')
+    ..writeln(AnsiText('Bold underline')
+      ..bold()
+      ..underline())
+    ..write(' - ')
+    ..writeln(AnsiText('Blinking')..blink())
+    ..write(' - ')
+    ..writeln(AnsiText('Inverted')..inverted())
+    ..write(' - ')
+    ..write(AnsiText('Concealed')..concealed())
+    ..writeln(' (concealed)')
+    ..write(' - ')
+    ..writeln(AnsiText('Strikethrough')..strikethrough())
     ..writeln()
 
     // standard colors
-    ..writeln(AnsiText('BLACK')..black())
-    ..writeln(AnsiText('RED')..red())
-    ..writeln(AnsiText('GREEN')..green())
-    ..writeln(AnsiText('YELLOW')..yellow());
-  // void blue() => apply(Styles.color.text.blue);
-  // void magenta() => apply(Styles.color.text.magenta);
-  // void cyan() => apply(Styles.color.text.cyan);
-  // void lightGray() => apply(Styles.color.text.white);
-  // void gray() => apply(Styles.color.text.bright.black);
-  // void pink() => apply(Styles.color.text.bright.red);
-  // void lightGreen() => apply(Styles.color.text.bright.green);
-  // void lightYellow() => apply(Styles.color.text.bright.yellow);
-  // void lightBlue() => apply(Styles.color.text.bright.blue);
-  // void lightMagenta() => apply(Styles.color.text.bright.magenta);
-  // void lightCyan() => apply(Styles.color.text.bright.cyan);
-  // void white() => apply(Styles.color.text.bright.white);
+    ..writeln('Standard colors:')
+    ..write(AnsiText(' Black   ')
+      ..bgBlack()
+      ..brightWhite())
+    ..write('  ')
+    ..write(AnsiText(' Red     ')..bgRed())
+    ..write('  ')
+    ..write(AnsiText(' Green   ')..bgGreen())
+    ..write('  ')
+    ..write(AnsiText(' Yellow  ')..bgYellow())
+    ..write('  ')
+    ..write(AnsiText(' Blue    ')..bgBlue())
+    ..write('  ')
+    ..write(AnsiText(' Magenta ')..bgMagenta())
+    ..write('  ')
+    ..write(AnsiText(' Cyan    ')..bgCyan())
+    ..write('  ')
+    ..write(AnsiText(' White   ')
+      ..bgWhite()
+      ..black())
+    ..writeln()
+    ..writeln()
 
+    // bright colors
+    ..writeln('Bright colors:')
+    ..write(AnsiText(' Black   ')
+      ..bgBrightBlack()
+      ..white())
+    ..write('  ')
+    ..write(AnsiText(' Red     ')..bgBrightRed())
+    ..write('  ')
+    ..write(AnsiText(' Green   ')..bgBrightGreen())
+    ..write('  ')
+    ..write(AnsiText(' Yellow  ')..bgBrightYellow())
+    ..write('  ')
+    ..write(AnsiText(' Blue    ')..bgBrightBlue())
+    ..write('  ')
+    ..write(AnsiText(' Magenta ')..bgBrightMagenta())
+    ..write('  ')
+    ..write(AnsiText(' Cyan    ')..bgBrightCyan())
+    ..write('  ')
+    ..write(AnsiText(' White   ')
+      ..bgBrightWhite()
+      ..black())
+    ..writeln()
+    ..writeln()
+
+    // 8-bit colors
+    ..writeln('216 RGB colors:');
   for (var r = 0; r <= 5; r++) {
     for (var g = 0; g <= 5; g++) {
       for (var b = 0; b <= 5; b++) {
@@ -38,12 +99,11 @@ void main() {
       stdout.writeln();
     }
   }
+
+  // Grayscale values
   stdout
     ..writeln()
-    ..write(AnsiText(' Black  ')
-      ..applyAll(
-          {Styles.color.background.black, Styles.color.text.bright.white}))
-    ..writeln();
+    ..writeln('Grayscale values:');
   for (var i = 0; i <= 23; i++) {
     stdout
       ..write(AnsiText(' Gray $i ')
@@ -53,9 +113,45 @@ void main() {
       ..writeln();
   }
   stdout
-    ..write(AnsiText(' White  ')
-      ..applyAll(
-          {Styles.color.background.bright.white, Styles.color.text.black}))
+    ..writeln()
+    ..writeln('24 bit true color:');
+
+  for (var i = 0; i < 256; i = i + 3) {
+    stdout.write(
+        AnsiText(' ')..apply(Styles.color.background.trueColor(0, 0, i)));
+  }
+  stdout.writeln();
+  for (var i = 0; i < 256; i = i + 3) {
+    stdout.write(
+        AnsiText(' ')..apply(Styles.color.background.trueColor(0, i, 0)));
+  }
+  stdout.writeln();
+  for (var i = 0; i < 256; i = i + 3) {
+    stdout.write(
+        AnsiText(' ')..apply(Styles.color.background.trueColor(0, i, i)));
+  }
+  stdout.writeln();
+  for (var i = 0; i < 256; i = i + 3) {
+    stdout.write(
+        AnsiText(' ')..apply(Styles.color.background.trueColor(i, 0, 0)));
+  }
+  stdout.writeln();
+  for (var i = 0; i < 256; i = i + 3) {
+    stdout.write(
+        AnsiText(' ')..apply(Styles.color.background.trueColor(i, 0, i)));
+  }
+  stdout.writeln();
+  for (var i = 0; i < 256; i = i + 3) {
+    stdout.write(
+        AnsiText(' ')..apply(Styles.color.background.trueColor(i, i, 0)));
+  }
+  stdout.writeln();
+  for (var i = 0; i < 256; i = i + 3) {
+    stdout.write(
+        AnsiText(' ')..apply(Styles.color.background.trueColor(i, i, i)));
+  }
+
+  stdout
     ..writeln()
     ..writeln();
 }
