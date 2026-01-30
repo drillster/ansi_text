@@ -4,10 +4,18 @@ import 'package:ansi_text/ansi_text.dart';
 
 void main() {
   stdout
-    ..writeln(AnsiText('AnsiText example page')..bold())
-    ..writeln()
+    ..writeln(AnsiText('AnsiText example page')..boldUnderline())
+    ..writeln();
+  _printMarkupExamples();
+  _printStandardColorExamples();
+  _printBrightColorExamples();
+  _printEightBitColorExamples();
+  _printEightBitGrayscaleExamples();
+  _printTrueColorExamples();
+}
 
-    // Text markup
+void _printMarkupExamples() {
+  stdout
     ..writeln('Text markup:')
     ..write(' - ')
     ..writeln(AnsiText('Bold')..bold())
@@ -30,9 +38,11 @@ void main() {
     ..writeln(' (concealed)')
     ..write(' - ')
     ..writeln(AnsiText('Strikethrough')..strikethrough())
-    ..writeln()
+    ..writeln();
+}
 
-    // standard colors
+void _printStandardColorExamples() {
+  stdout
     ..writeln('Standard colors:')
     ..write(AnsiText(' Black   ')
       ..bold()
@@ -74,9 +84,11 @@ void main() {
       ..bgWhite()
       ..black())
     ..writeln()
-    ..writeln()
+    ..writeln();
+}
 
-    // bright colors
+void _printBrightColorExamples() {
+  stdout
     ..writeln('Bright colors:')
     ..write(AnsiText(' Black   ')
       ..bold()
@@ -118,10 +130,11 @@ void main() {
       ..bgBrightWhite()
       ..black())
     ..writeln()
-    ..writeln()
+    ..writeln();
+}
 
-    // 8-bit colors
-    ..writeln('216 RGB colors:');
+void _printEightBitColorExamples() {
+  stdout.writeln('216 RGB colors:');
   for (var r = 0; r <= 5; r++) {
     for (var g = 0; g <= 5; g++) {
       for (var b = 0; b <= 5; b++) {
@@ -135,11 +148,11 @@ void main() {
       stdout.writeln();
     }
   }
-  stdout
-    ..writeln()
+  stdout.writeln();
+}
 
-    // Grayscale values
-    ..writeln('Grayscale values:');
+void _printEightBitGrayscaleExamples() {
+  stdout.writeln('Grayscale values:');
   for (var i = 0; i <= 23; i++) {
     stdout
       ..write(AnsiText(' Gray $i ${i < 10 ? ' ' : ''}')
@@ -151,11 +164,11 @@ void main() {
       stdout.writeln();
     }
   }
-  stdout
-    ..writeln()
+  stdout.writeln();
+}
 
-    // True color
-    ..writeln('24 bit true color:');
+void _printTrueColorExamples() {
+  stdout.writeln('24 bit true color:');
   for (var mask = 1; mask < 8; mask++) {
     for (var i = 0; i < 256; i += 3) {
       stdout.write(
