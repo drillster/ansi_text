@@ -94,6 +94,9 @@ The library does not automatically detect terminal color support. Typically, ter
 `COLORTERM` environment variables. For example, `TERM=xterm-256color` indicates 256-color support, while `COLORTERM=truecolor`
 indicates 24-bit true color support.
 
+Similarly, there is no guarantee that all of the markup options work as expected. Not all terminal emulators support all of the
+provided markup styles.
+
 ### Examples
 See [bin/examples.dart](bin/examples.dart) for a reasonably exhaustive overview of colors and markup. Running it produces the
 following output:

@@ -1,6 +1,6 @@
 import 'styles.dart';
 
-/// Provides a wrapper around a text string so that ANSI control codes may be
+/// Provides a wrapper around a text string so that ANSI escape codes may be
 /// applied to it.
 class AnsiText {
   AnsiText([this._text = '']);
@@ -12,15 +12,15 @@ class AnsiText {
     _text = _applyStyle(style, _text);
   }
 
-  /// Applies a collection of style property.
+  /// Applies a collection of style properties.
   void applyAll(Set<Style>? styles) {
     styles?.forEach(apply);
   }
 
   String _applyStyle(Style style, String text) => '${style.toString()}$text';
 
-  /// Returns the string representation including ANSI control codes and
-  /// terminated with a "reset".
+  /// Returns the string representation including the requested ANSI escape
+  /// codes and a terminating "reset" sequence.
   @override
   String toString() => '$_text${Styles.markup.reset.toString()}';
 }

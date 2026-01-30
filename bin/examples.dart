@@ -168,7 +168,7 @@ void _printEightBitGrayscaleExamples() {
 }
 
 void _printTrueColorExamples() {
-  stdout.writeln('24 bit true color:');
+  stdout.writeln('24-bit true color:');
   for (var mask = 1; mask < 8; mask++) {
     for (var i = 0; i < 256; i += 3) {
       stdout.write(
