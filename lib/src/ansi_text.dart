@@ -23,4 +23,13 @@ class AnsiText {
   /// codes and a terminating "reset" sequence.
   @override
   String toString() => '$_text${Styles.markup.reset.toString()}';
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) =>
+      other is AnsiText && other.toString() == toString();
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => toString().hashCode;
 }

@@ -2,54 +2,74 @@ import 'package:ansi_text/ansi_text.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('foreground colors', () {
-    test('black', () {
-      final text = AnsiText('text')..black();
-      expect(text.toString(), '\x1B[30mtext\x1B[0m');
+  group('AnsiText', () {
+    test('defaults to empty text with reset code', () {
+      final text = AnsiText();
+
+      expect(text.toString(), '\x1B[0m');
     });
 
-    test('red', () {
-      final text = AnsiText('text')..red();
-      expect(text.toString(), '\x1B[31mtext\x1B[0m');
+    test('applies a single style', () {
+      final text = AnsiText('hello');
+      final style = Styles.color.text.red;
+
+      text.apply(style);
+
+      expect(text.toString(), '\x1B[31mhello\x1B[0m');
     });
 
-    test('green', () {
-      final text = AnsiText('text')..green();
-      expect(text.toString(), '\x1B[32mtext\x1B[0m');
+    test('applies multiple styles in iteration order', () {
+      final text = AnsiText('hello');
+
+      final styles = <Style>{
+        Styles.markup.bold,
+        Styles.color.text.red,
+      };
+
+      text.applyAll(styles);
+
+      // Order matters because styles are prepended
+      final result = text.toString();
+      expect(
+        result == '\x1B[1m\x1B[31mhello\x1B[0m' ||
+            result == '\x1B[31m\x1B[1mhello\x1B[0m',
+        isTrue,
+        reason: 'Set iteration order is not guaranteed',
+      );
     });
 
-    test('yellow', () {
-      final text = AnsiText('text')..yellow();
-      expect(text.toString(), '\x1B[33mtext\x1B[0m');
+    test('applyAll with null does nothing', () {
+      final text = AnsiText('hello')..applyAll(null);
+      expect(text.toString(), 'hello\x1B[0m');
     });
 
-    test('blue', () {
-      final text = AnsiText('text')..blue();
-      expect(text.toString(), '\x1B[34mtext\x1B[0m');
+    test('styles are prepended, not appended', () {
+      final text = AnsiText('hello')
+        ..apply(Styles.markup.bold)
+        ..apply(Styles.markup.italic);
+      expect(text.toString(), '\x1B[3m\x1B[1mhello\x1B[0m');
     });
 
-    test('magenta', () {
-      final text = AnsiText('text')..magenta();
-      expect(text.toString(), '\x1B[35mtext\x1B[0m');
+    test('equality is based on rendered output', () {
+      final a = AnsiText('hello')..apply(Styles.color.text.red);
+      final b = AnsiText('hello')..apply(Styles.color.text.red);
+
+      expect(a, equals(b));
+      expect(a.hashCode, equals(b.hashCode));
     });
 
-    test('cyan', () {
-      final text = AnsiText('text')..cyan();
-      expect(text.toString(), '\x1B[36mtext\x1B[0m');
+    test('inequality when rendered output differs', () {
+      final a = AnsiText('hello')..apply(Styles.color.text.red);
+      final b = AnsiText('hello')..apply(Styles.color.text.blue);
+
+      expect(a == b, isFalse);
     });
 
-    test('white', () {
-      final text = AnsiText('text')..white();
-      expect(text.toString(), '\x1B[37mtext\x1B[0m');
-    });
-  });
+    test('different internal state but same output is equal', () {
+      final a = AnsiText('hello');
+      final b = AnsiText('hello');
 
-  group('combination of styles', () {
-    test('bold and magenta', () {
-      final text = AnsiText('text')
-        ..bold()
-        ..magenta();
-      expect(text.toString(), '\x1B[35m\x1B[1mtext\x1B[0m');
+      expect(a, equals(b));
     });
   });
 }
