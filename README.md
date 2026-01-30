@@ -46,7 +46,7 @@ one may also use:
 text..bold();
 ```
 
-See [extensions.dart](lib/src/extensions.dart) for the complete list of shorthand methods.
+See [shorthand.dart](lib/src/shorthand.dart) for the complete list of shorthand methods.
 
 #### Color palettes
 This library supports three color palettes:

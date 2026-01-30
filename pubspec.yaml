@@ -1,5 +1,5 @@
 name: ansi_text
-description: Provides a Dart library for styling and formatting terminal text using the ANSI control codes.
+description: A Dart library for styling and formatting terminal text using the ANSI escape codes.
 version: 1.0.0
 repository: https://github.com/drillster/ansi_text
 

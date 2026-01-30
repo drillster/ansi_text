@@ -3,14 +3,17 @@ import 'styles.dart';
 
 /// Provides some shorthand methods for text markup.
 extension Markup on AnsiText {
-  void bold() => apply(Styles.markup.bold);
-  void faint() => apply(Styles.markup.faint);
-  void italic() => apply(Styles.markup.italic);
-  void underline() => apply(Styles.markup.underline);
   void blink() => apply(Styles.markup.blinking);
-  void inverted() => apply(Styles.markup.inverted);
+  void bold() => apply(Styles.markup.bold);
+  void boldItalic() => applyAll({Styles.markup.bold, Styles.markup.italic});
+  void boldUnderline() =>
+      applyAll({Styles.markup.bold, Styles.markup.underline});
   void concealed() => apply(Styles.markup.concealed);
+  void faint() => apply(Styles.markup.faint);
+  void inverted() => apply(Styles.markup.inverted);
+  void italic() => apply(Styles.markup.italic);
   void strikethrough() => apply(Styles.markup.strikethrough);
+  void underline() => apply(Styles.markup.underline);
 }
 
 /// Provides some shorthand methods for setting the text color.
