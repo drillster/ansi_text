@@ -1,9 +1,9 @@
 # ANSI Text
-Provides a Dart library for styling and formatting terminal text using the
-[ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code). Styles are structured to provide easy IDE auto-completion.
+A Dart library for styling and formatting terminal text using
+[ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code). Styles are structured to enable convenient IDE auto-completion.
 
 ### Usage
-In order to add ANSI styling to text, wrap the text string into an `AnsiText` object:
+To add ANSI styling to text, wrap the string in an `AnsiText` object:
 ```dart
 final text = AnsiText('Hello, world');
 ```
@@ -16,14 +16,14 @@ text
   ..apply(Styles.color.background.red);
 ```
 
-The text can be output to the terminal either by printing it or by writing it to `stdout` or `stderr`. This calls `toString()` on
-the `AnsiText` object, which evaluates the requested ANSI escape codes, including a terminating reset sequence:
+The text can be output to the terminal by printing it or writing it to `stdout` or `stderr`. Printing automatically calls
+`toString()` on the `AnsiText` object, applying all requested ANSI escape codes and appending a terminating reset sequence:
 
 ```dart
 print(text);
 ```
 
-If there are multiple style attributes to apply to a single `AnsiText` object, the `applyAll` method may be useful:
+When applying multiple style attributes to a single `AnsiText` object, the `applyAll` method can be convenient:
 ```dart
 AnsiText('Hello, world')
 ..applyAll({
@@ -37,7 +37,7 @@ Note that the `Styles` class is structured in such a way that it provides out-of
 fast entry and compile-time checking.
 
 #### Shorthand methods
-Various shorthand methods for frequently used styling are provided for. For example, instead of typing:
+Various shorthand methods for frequently used styles are provided. For example, instead of typing:
 ```dart
 text..apply(Styles.markup.bold);
 ```
@@ -49,7 +49,7 @@ text..bold();
 See [extensions.dart](lib/src/extensions.dart) for the complete list of shorthand methods.
 
 #### Color palettes
-This library supports three different color palettes:
+This library supports three color palettes:
 1. The 8 standard colors + 8 brighter versions
 2. The 256-color (8-bit) color system, extending the standard colors with 216 RGB colors and 24 grayscales
 3. The 24-bit RGB true color palette, comprising of over 16 million colors
@@ -59,8 +59,8 @@ example:
 
 ```dart
 AnsiText('Hello, world')
-  ..apply(Styles.color.text.yellow)
-  ..apply(Styles.color.background.bright.red)
+  ..apply(Styles.color.text.yellow) // standard color
+  ..apply(Styles.color.background.bright.red) // bright variant
 ```
 
 The 216 RGB colors from the 8-bit color scheme are available through the `rgb(int red, int green, int blue)` method. The values of
@@ -90,13 +90,12 @@ AnsiText('Hello, world')
   ..apply(Styles.color.background.trueColor(180,120,60));
 ```
 
-There is no built-in functionality to determine if the terminal supports any of these color modes. Generally speaking terminals
-advertise their color support in the `TERM` and `COLORTERM` environment variables. If `TERM` is set to `xterm-256color` it indicates
-that the 256-color palette is supported. If `COLORTERM` is set to `truecolor`, the 24-bit true color palette should be supported.
-
+The library does not automatically detect terminal color support. Typically, terminals advertise support via the `TERM` and
+`COLORTERM` environment variables. For example, `TERM=xterm-256color` indicates 256-color support, while `COLORTERM=truecolor`
+indicates 24-bit true color support.
 
 ### Examples
-
-See `bin/examples.dart` for a reasonably exhaustive overview of colors and markup. Running it produces the following output:
+See [bin/examples.dart](bin/examples.dart) for a reasonably exhaustive overview of colors and markup. Running it produces the
+following output:
 
 ![Examples](examples.png)
