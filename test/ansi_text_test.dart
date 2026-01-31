@@ -18,7 +18,17 @@ void main() {
       expect(text.toString(), 'hello');
       final style = Styles.color.text.red;
       text.apply(style);
-      expect(text.toString(), '\x1B[31mhello\x1B[0m');
+      expect(text.toString(), '\x1B[31mhello\x1B[39m');
+    });
+
+    test('applying the same style twice has no additional effect', () {
+      final text = AnsiText('hello');
+      expect(text.toString(), 'hello');
+      final style = Styles.color.text.red;
+      text
+        ..apply(style)
+        ..apply(style);
+      expect(text.toString(), '\x1B[31mhello\x1B[39m');
     });
 
     test('applies multiple styles in iteration order', () {
@@ -27,15 +37,8 @@ void main() {
           Styles.markup.bold,
           Styles.color.text.red,
         });
-
-      // Order matters because styles are prepended
       final result = text.toString();
-      expect(
-        result == '\x1B[1;31mhello\x1B[0m' ||
-            result == '\x1B[31;1mhello\x1B[0m',
-        isTrue,
-        reason: 'Set iteration order is not guaranteed',
-      );
+      expect(result, '\x1B[1;31mhello\x1B[22;39m');
     });
 
     test('applyAll with null does nothing', () {
@@ -47,7 +50,7 @@ void main() {
       final text = AnsiText('hello')
         ..apply(Styles.markup.bold)
         ..apply(Styles.markup.italic);
-      expect(text.toString(), '\x1B[1;3mhello\x1B[0m');
+      expect(text.toString(), '\x1B[1;3mhello\x1B[22;23m');
     });
 
     test('equality is based on rendered output', () {

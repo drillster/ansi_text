@@ -10,7 +10,9 @@ class AnsiText {
 
   /// Applies a style property.
   void apply(Style style) {
-    _styles.add(style);
+    if (!_styles.contains(style)) {
+      _styles.add(style);
+    }
   }
 
   /// Applies a collection of style properties.
@@ -28,13 +30,17 @@ class AnsiText {
       final buffer = StringBuffer()
         ..write(_escapeCodesFromStyles(_styles))
         ..write(_text)
-        ..write(_escapeCodesFromStyles([Styles.markup.reset]));
+        ..write(_resetCodesFromStyles(_styles));
       return buffer.toString();
     }
   }
 
-  String _escapeCodesFromStyles(List<Style> styles) =>
-      styles.isEmpty ? '' : '\u{1B}[${styles.map((s) => s.code).join(';')}m';
+  String _escapeCodesFromStyles(List<Style> styles) => styles.isEmpty
+      ? ''
+      : '\u{1B}[${styles.map((s) => s.activate).join(';')}m';
+
+  String _resetCodesFromStyles(List<Style> styles) =>
+      styles.isEmpty ? '' : '\u{1B}[${styles.map((s) => s.reset).join(';')}m';
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
