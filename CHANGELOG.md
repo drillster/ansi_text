@@ -1,6 +1,7 @@
 # Changelog
-#### Upcoming
+#### 1.0.4
 - Update analysis options
+- Add library level documentation comments
 
 #### 1.0.3
 - Update README
