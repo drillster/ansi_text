@@ -3,7 +3,6 @@ description: A Dart library for styling and formatting terminal text using the A
 version: 1.0.0
 repository: https://github.com/drillster/ansi_text
 license: "MIT"
-publish_to: https://pub.dev
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
