@@ -1,4 +1,7 @@
 # Changelog
+#### Upcoming
+- Update analysis options
+
 #### 1.0.3
 - Update README
 - Rename example program

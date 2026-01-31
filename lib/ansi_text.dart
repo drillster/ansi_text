@@ -1,3 +1,5 @@
+/// A library for styling and formatting terminal text using the ANSI escape
+/// codes.
 library ansi_text;
 
 export 'src/ansi_text.dart';
