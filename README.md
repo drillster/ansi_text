@@ -99,7 +99,7 @@ Similarly, there is no guarantee that all of the markup options work as expected
 provided markup styles.
 
 ### Examples
-See [bin/examples.dart](bin/examples.dart) for a reasonably exhaustive overview of colors and markup. Running it produces the
-following output:
+See [example/examples.dart](example/examples.dart) for a reasonably exhaustive overview of colors and markup. Running it produces
+the following output:
 
 ![Examples](examples.png)
