@@ -3,6 +3,7 @@ import 'styles.dart';
 /// Provides a wrapper around a text string so that ANSI escape codes may be
 /// applied to it.
 class AnsiText {
+  /// Creates a new AnsiText, optionally containing some text.
   AnsiText([this._text = '']);
 
   final String _text;

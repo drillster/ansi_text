@@ -1,7 +1,10 @@
 /// Represents the collection of styles that may be applied to an `AnsiText`
 /// object.
 class Styles {
+  /// Contains the "markup" styles.
   static const markup = _Markup();
+
+  /// Contains the "color" styles.
   static const color = _Color();
 }
 
@@ -115,9 +118,13 @@ class _BrightFg {
 /// Each style has an SGR [activate] code to effectuate the style, and a [reset]
 /// code to undo the style.
 class Style {
+  /// Creates a new style with activation and reset codes.
   const Style(this.activate, this.reset);
 
+  /// Represents the SGR control code to activate the style.
   final String activate;
+
+  /// Represents the SGR control code to reset the style.
   final String reset;
 }
 
