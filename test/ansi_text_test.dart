@@ -31,8 +31,8 @@ void main() {
       // Order matters because styles are prepended
       final result = text.toString();
       expect(
-        result == '\x1B[1m\x1B[31mhello\x1B[0m' ||
-            result == '\x1B[31m\x1B[1mhello\x1B[0m',
+        result == '\x1B[1;31mhello\x1B[0m' ||
+            result == '\x1B[31;1mhello\x1B[0m',
         isTrue,
         reason: 'Set iteration order is not guaranteed',
       );
@@ -43,11 +43,11 @@ void main() {
       expect(text.toString(), 'hello');
     });
 
-    test('styles are appended, not prepended', () {
+    test('styles are combined (appended, not prepended)', () {
       final text = AnsiText('hello')
         ..apply(Styles.markup.bold)
         ..apply(Styles.markup.italic);
-      expect(text.toString(), '\x1B[1m\x1B[3mhello\x1B[0m');
+      expect(text.toString(), '\x1B[1;3mhello\x1B[0m');
     });
 
     test('equality is based on rendered output', () {

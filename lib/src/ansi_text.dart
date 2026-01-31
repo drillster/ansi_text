@@ -6,11 +6,11 @@ class AnsiText {
   AnsiText([this._text = '']);
 
   final String _text;
-  final _appliedStyles = <Style>[];
+  final _styles = <Style>[];
 
   /// Applies a style property.
   void apply(Style style) {
-    _appliedStyles.add(style);
+    _styles.add(style);
   }
 
   /// Applies a collection of style properties.
@@ -22,21 +22,23 @@ class AnsiText {
   /// codes and a terminating "reset" sequence if appropriate.
   @override
   String toString() {
-    if (_appliedStyles.isEmpty) {
+    if (_styles.isEmpty) {
       return _text;
     } else {
-      final buffer = StringBuffer();
-      for (final style in _appliedStyles) {
-        buffer.write(_escapeCodeFromStyle(style));
-      }
-      buffer
+      final buffer = StringBuffer()
+        ..write(_escapeCodesFromStyles(_styles))
         ..write(_text)
-        ..write(_escapeCodeFromStyle(Styles.markup.reset));
+        ..write(_escapeCodesFromStyles([Styles.markup.reset]));
       return buffer.toString();
     }
   }
 
-  String _escapeCodeFromStyle(Style style) => '\u{1B}[${style.code}m';
+  String _escapeCodesFromStyles(List<Style> styles) {
+    if (styles.isEmpty) {
+      return '';
+    }
+    return '\u{1B}[${styles.map((s) => s.code).join(';')}m';
+  }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
