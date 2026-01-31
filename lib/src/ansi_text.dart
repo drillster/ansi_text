@@ -6,6 +6,7 @@ class AnsiText {
   AnsiText([this._text = '']);
 
   String _text = '';
+  bool styleApplied = false;
 
   /// Applies a style property.
   void apply(Style style) {
@@ -17,12 +18,21 @@ class AnsiText {
     styles?.forEach(apply);
   }
 
-  String _applyStyle(Style style, String text) => '${style.toString()}$text';
+  String _applyStyle(Style style, String text) {
+    styleApplied = true;
+    return '${style.toString()}$text';
+  }
 
   /// Returns the string representation including the requested ANSI escape
-  /// codes and a terminating "reset" sequence.
+  /// codes and a terminating "reset" sequence if appropriate.
   @override
-  String toString() => '$_text${Styles.markup.reset.toString()}';
+  String toString() {
+    if (styleApplied) {
+      return '$_text${Styles.markup.reset.toString()}';
+    } else {
+      return _text;
+    }
+  }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes

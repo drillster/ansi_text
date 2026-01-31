@@ -3,30 +3,30 @@ import 'package:test/test.dart';
 
 void main() {
   group('AnsiText', () {
-    test('defaults to empty text with reset code', () {
+    test('defaults to empty text without reset sequence', () {
       final text = AnsiText();
+      expect(text.toString(), isEmpty);
+    });
 
-      expect(text.toString(), '\x1B[0m');
+    test('there is no reset sequence if no styles are applied', () {
+      final text = AnsiText('hello');
+      expect(text.toString(), 'hello');
     });
 
     test('applies a single style', () {
       final text = AnsiText('hello');
+      expect(text.toString(), 'hello');
       final style = Styles.color.text.red;
-
       text.apply(style);
-
       expect(text.toString(), '\x1B[31mhello\x1B[0m');
     });
 
     test('applies multiple styles in iteration order', () {
-      final text = AnsiText('hello');
-
-      final styles = <Style>{
-        Styles.markup.bold,
-        Styles.color.text.red,
-      };
-
-      text.applyAll(styles);
+      final text = AnsiText('hello')
+        ..applyAll({
+          Styles.markup.bold,
+          Styles.color.text.red,
+        });
 
       // Order matters because styles are prepended
       final result = text.toString();
@@ -40,7 +40,7 @@ void main() {
 
     test('applyAll with null does nothing', () {
       final text = AnsiText('hello')..applyAll(null);
-      expect(text.toString(), 'hello\x1B[0m');
+      expect(text.toString(), 'hello');
     });
 
     test('styles are prepended, not appended', () {
