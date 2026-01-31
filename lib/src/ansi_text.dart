@@ -33,12 +33,8 @@ class AnsiText {
     }
   }
 
-  String _escapeCodesFromStyles(List<Style> styles) {
-    if (styles.isEmpty) {
-      return '';
-    }
-    return '\u{1B}[${styles.map((s) => s.code).join(';')}m';
-  }
+  String _escapeCodesFromStyles(List<Style> styles) =>
+      styles.isEmpty ? '' : '\u{1B}[${styles.map((s) => s.code).join(';')}m';
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
