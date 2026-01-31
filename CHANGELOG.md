@@ -1,6 +1,7 @@
 # Changelog
 #### Upcoming
 - Update README
+- Rename example program
 
 #### 1.0.2
 - Move examples.dart to example directory
