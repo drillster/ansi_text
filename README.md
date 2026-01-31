@@ -1,6 +1,7 @@
 # ANSI Text
 A Dart library for styling and formatting terminal text using
-[ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code). Styles are structured to enable convenient IDE auto-completion.
+[ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR), specifically the Select Graphic Rendition (SGR) control
+sequences. Styles are structured to enable convenient IDE auto-completion.
 
 ### Usage
 To add ANSI styling to text, wrap the string in an `AnsiText` object:
