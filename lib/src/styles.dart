@@ -117,12 +117,7 @@ class _BrightFg {
 class Style {
   const Style(this.code);
 
-  static const String _esc = '\u{1B}';
-
   final String code;
-
-  @override
-  String toString() => '$_esc[${code}m';
 }
 
 /// Calculates the 256-color color code. Each component value must be between

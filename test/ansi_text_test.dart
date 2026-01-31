@@ -43,11 +43,11 @@ void main() {
       expect(text.toString(), 'hello');
     });
 
-    test('styles are prepended, not appended', () {
+    test('styles are appended, not prepended', () {
       final text = AnsiText('hello')
         ..apply(Styles.markup.bold)
         ..apply(Styles.markup.italic);
-      expect(text.toString(), '\x1B[3m\x1B[1mhello\x1B[0m');
+      expect(text.toString(), '\x1B[1m\x1B[3mhello\x1B[0m');
     });
 
     test('equality is based on rendered output', () {

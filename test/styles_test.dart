@@ -2,13 +2,6 @@ import 'package:ansi_text/ansi_text.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Style.toString()', () {
-    test('formats ANSI escape sequence correctly', () {
-      const style = Style('31');
-      expect(style.toString(), '\u{1B}[31m');
-    });
-  });
-
   group('Markup styles', () {
     test('reset', () {
       expect(Styles.markup.reset.code, '0');

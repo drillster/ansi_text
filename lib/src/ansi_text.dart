@@ -5,12 +5,12 @@ import 'styles.dart';
 class AnsiText {
   AnsiText([this._text = '']);
 
-  String _text = '';
-  bool styleApplied = false;
+  final String _text;
+  final _appliedStyles = <Style>[];
 
   /// Applies a style property.
   void apply(Style style) {
-    _text = _applyStyle(style, _text);
+    _appliedStyles.add(style);
   }
 
   /// Applies a collection of style properties.
@@ -18,21 +18,25 @@ class AnsiText {
     styles?.forEach(apply);
   }
 
-  String _applyStyle(Style style, String text) {
-    styleApplied = true;
-    return '${style.toString()}$text';
-  }
-
   /// Returns the string representation including the requested ANSI escape
   /// codes and a terminating "reset" sequence if appropriate.
   @override
   String toString() {
-    if (styleApplied) {
-      return '$_text${Styles.markup.reset.toString()}';
-    } else {
+    if (_appliedStyles.isEmpty) {
       return _text;
+    } else {
+      final buffer = StringBuffer();
+      for (final style in _appliedStyles) {
+        buffer.write(_escapeCodeFromStyle(style));
+      }
+      buffer
+        ..write(_text)
+        ..write(_escapeCodeFromStyle(Styles.markup.reset));
+      return buffer.toString();
     }
   }
+
+  String _escapeCodeFromStyle(Style style) => '\u{1B}[${style.code}m';
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
