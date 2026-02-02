@@ -69,8 +69,8 @@ each component must be between 0 and 5 (inclusive). For example:
 
 ```dart
 AnsiText('Hello, world')
-  ..apply(Styles.color.text.rgb(1,2,3))
-  ..apply(Styles.color.background.rgb(3,2,1));
+  ..apply(Styles.color.text.rgb(1, 2, 3))
+  ..apply(Styles.color.background.rgb(3, 2, 1));
 ```
 
 For grayscales there is the `gray(int lightness)` method. The value must be between 0 and 23 (inclusive), with 0 being the darkest
@@ -87,8 +87,8 @@ each component must be between 0 and 255 (inclusive). Example:
 
 ```dart
 AnsiText('Hello, world')
-  ..apply(Styles.color.text.trueColor(60,120,180))
-  ..apply(Styles.color.background.trueColor(180,120,60));
+  ..apply(Styles.color.text.trueColor(60, 120, 180))
+  ..apply(Styles.color.background.trueColor(180, 120, 60));
 ```
 
 The library does not automatically detect terminal color support. Typically, terminals advertise support via the `TERM` and

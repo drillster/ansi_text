@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:ansi_text/ansi_text.dart';
 
 void main() {
+  // disable markup and colors if the terminal does not support it
+  AnsiText.enabled = stdout.hasTerminal && stdout.supportsAnsiEscapes;
+
   stdout
     ..writeln(AnsiText('AnsiText example page')..boldUnderline())
     ..writeln();
