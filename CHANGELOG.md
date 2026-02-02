@@ -1,5 +1,5 @@
 # Changelog
-#### Upcoming
+#### 1.1.0
 - Add global on/off switch
 
 #### 1.0.4
