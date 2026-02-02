@@ -1,4 +1,7 @@
 # Changelog
+#### Upcoming
+- Add global on/off switch
+
 #### 1.0.4
 - Update analysis options
 - Add library level documentation comments

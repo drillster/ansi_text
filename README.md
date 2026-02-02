@@ -1,7 +1,7 @@
 # ANSI Text
 A Dart library for styling and formatting terminal text using
 [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR), specifically the Select Graphic Rendition (SGR) control
-sequences. Styles are structured to enable convenient IDE auto-completion.
+sequences. Styles are declarative and structured to enable convenient IDE auto-completion.
 
 ### Usage
 To add ANSI styling to text, wrap the string in an `AnsiText` object:
@@ -97,6 +97,27 @@ indicates 24-bit true color support.
 
 Similarly, there is no guarantee that all of the markup options work as expected. Not all terminal emulators support all of the
 provided markup styles.
+
+#### Global configuration
+By default, `ansi_text` will always output ANSI escape codes, but there is an on/off switch should you wish to suppress the use of
+markup and colors globally:
+
+```dart
+AnsiText.enabled = false; // suppress markup and colors
+```
+
+Setting `AnsiText.enabled` to false is useful in those cases where the output stream does not support ANSI markup. For the best user
+experience, you can sync the library with the user's terminal capabilities using `dart:io`:
+
+```dart
+import 'dart:io';
+import 'package:ansi_text/ansi_text.dart';
+
+void main() {
+  // Automatically disable colors if the terminal doesn't support them
+  AnsiText.enabled = stdout.hasTerminal && stdout.supportsAnsiEscapes;
+}
+```
 
 ### Examples
 See [example/example.dart](example/example.dart) for a reasonably exhaustive overview of colors and markup. Running it produces the

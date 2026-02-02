@@ -21,6 +21,18 @@ void main() {
       expect(text.toString(), '\x1B[31mhello\x1B[39m');
     });
 
+    test('turning off ANSI formatting suppresses escape codes', () {
+      final text = AnsiText('hello');
+      expect(text.toString(), 'hello');
+      final style = Styles.color.text.red;
+      text.apply(style);
+      expect(text.toString(), '\x1B[31mhello\x1B[39m');
+      AnsiText.enabled = false;
+      expect(text.toString(), 'hello');
+      AnsiText.enabled = true;
+      expect(text.toString(), '\x1B[31mhello\x1B[39m');
+    });
+
     test('applying the same style twice has no additional effect', () {
       final text = AnsiText('hello');
       expect(text.toString(), 'hello');

@@ -6,6 +6,10 @@ class AnsiText {
   /// Creates a new AnsiText, optionally containing some text.
   AnsiText([this._text = '']);
 
+  /// Provides a global on/off switch for the use of markup and color. Setting
+  /// [enabled] to `false` suppresses the use of any ANSI escape codes.
+  static bool enabled = true;
+
   final String _text;
   final _styles = <Style>[];
 
@@ -23,9 +27,11 @@ class AnsiText {
 
   /// Returns the string representation including the requested ANSI escape
   /// codes and a terminating "reset" sequence if appropriate.
+  ///
+  /// ANSI formatting is suppressed if the global `enabled` is set to `false`.
   @override
   String toString() {
-    if (_styles.isEmpty) {
+    if (enabled == false || _styles.isEmpty) {
       return _text;
     } else {
       final buffer = StringBuffer()
