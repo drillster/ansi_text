@@ -1,4 +1,7 @@
 # Changelog
+#### Upcoming
+- Add support for OSC 8 hyperlinks
+
 #### 1.1.0
 - Add global on/off switch
 

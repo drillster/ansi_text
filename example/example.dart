@@ -7,7 +7,9 @@ void main() {
   AnsiText.enabled = stdout.hasTerminal && stdout.supportsAnsiEscapes;
 
   stdout
-    ..writeln(AnsiText('AnsiText example page')..boldUnderline())
+    ..writeln(AnsiText('AnsiText example page')
+      ..boldUnderline()
+      ..hyperlink(Uri.parse('https://github.com/drillster/ansi_text')))
     ..writeln();
   _printMarkupExamples();
   _printStandardColorExamples();
