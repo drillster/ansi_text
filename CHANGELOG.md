@@ -1,5 +1,5 @@
 # Changelog
-#### Upcoming
+#### 1.2.0
 - Add support for OSC 8 hyperlinks
 
 #### 1.1.0
