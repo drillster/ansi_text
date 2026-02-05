@@ -1,9 +1,10 @@
 # ANSI Text
-A library for styling and formatting terminal text using [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR),
-specifically the Select Graphic Rendition (SGR) control sequences. Styles are declarative and structured to enable convenient IDE
-auto-completion.
+A library for adding rich formatting to terminal text using [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR).
+It supports bold, italic, underline, and other SGR styles, multiple color palettes including truecolor, and clickable hyperlinks
+through the [OSC 8](https://ansi.tools/lookup?q=OSC) standard. The API is fluent, IDE-friendly, and allows enabling or disabling
+formatting globally.
 
-### Usage
+## Usage
 To add ANSI styling to text, wrap the string in an `AnsiText` object:
 ```dart
 final text = AnsiText('Hello, world');
@@ -37,7 +38,7 @@ AnsiText('Hello, world')
 Note that the `Styles` class is structured in such a way that it provides out-of-the-box command completion in an IDE, allowing for
 fast entry and compile-time checking.
 
-#### Shorthand methods
+### Shorthand methods
 Various shorthand methods for frequently used styles are provided. For example, instead of typing:
 ```dart
 text..apply(Styles.markup.bold);
@@ -49,7 +50,40 @@ text..bold();
 
 See [shorthand.dart](lib/src/shorthand.dart) for the complete list of shorthand methods.
 
-#### Color palettes
+### Hyperlinks
+`AnsiText` supports clickable hyperlinks in terminals that implement the OSC 8 standard. A hyperlink can be applied to a string
+using the `hyperlink` method:
+
+```dart
+final text = AnsiText('Source code')
+  ..hyperlink(Uri.parse('https://github.com/drillster/ansi_text'));
+```
+
+When printed to a compatible terminal:
+```dart
+print(text);
+```
+the text "Source code" will be a clickable link pointing to https://github.com/drillster/ansi_text.
+
+#### Combining hyperlinks with styles
+Hyperlinks can be combined with SGR styling:
+```dart
+final text = AnsiText('Important link')
+  ..bold()
+  ..color(Styles.color.text.bright.yellow)
+  ..hyperlink(Uri.parse('https://github.com/drillster/ansi_text'));
+
+print(text);
+```
+All styles are applied *inside* the hyperlink sequence — the order of applying styles and hyperlinks does not affect the output.
+
+#### Notes
+- Only one hyperlink can be applied per `AnsiText` instance. Applying `hyperlink` multiple times overwrites the previous value.
+- Empty hyperlinks (`Uri()` or `Uri.parse('')`) are ignored and do not emit OSC 8 sequences.
+- Hyperlinks require terminal support. Terminals that do not implement OSC 8 will display the text normally without a link.
+- Hyperlinks can be chained alongside other style methods for fluent usage.
+
+### Color palettes
 This library supports three color palettes:
 1. The 8 standard colors + 8 brighter versions
 2. The 256-color (8-bit) color system, extending the standard colors with 216 RGB colors and 24 grayscales
@@ -98,12 +132,12 @@ indicates 24-bit true color support.
 Similarly, there is no guarantee that all of the markup options work as expected. Not all terminal emulators support all of the
 provided markup styles.
 
-#### Global configuration
+### Global configuration
 By default, `ansi_text` will always output ANSI escape codes, but there is an on/off switch should you wish to suppress the use of
-markup and colors globally:
+markup, colors, and hyperlinks globally:
 
 ```dart
-AnsiText.enabled = false; // suppress markup and colors
+AnsiText.enabled = false; // suppress markup, colors, and hyperlinks
 ```
 
 Setting `AnsiText.enabled` to false is useful in those cases where the output stream does not support ANSI markup. For the best user
@@ -119,7 +153,7 @@ void main() {
 }
 ```
 
-### Examples
+## Examples
 See [example/example.dart](example/example.dart) for a reasonably exhaustive overview of colors and markup. Running it produces the
 following output:
 
