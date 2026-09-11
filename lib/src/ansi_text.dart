@@ -6,6 +6,11 @@ class AnsiText {
   /// Creates a new AnsiText, optionally containing some text.
   AnsiText([this._text = '']);
 
+  /// Creates a new [AnsiText] with [text] and applies [styles].
+  AnsiText.styled(this._text, [Iterable<Style>? styles]) {
+    applyAll(styles);
+  }
+
   /// Provides a global on/off switch for the use of markup and color. Setting
   /// [enabled] to `false` suppresses the use of any ANSI escape codes.
   static bool enabled = true;
@@ -43,6 +48,22 @@ class AnsiText {
   // ignore: use_setters_to_change_properties
   void hyperlink(Uri hyperlink) {
     _hyperlink = hyperlink;
+  }
+
+  /// Clears all styles applied to this [AnsiText].
+  void clearStyles() {
+    _styles.clear();
+  }
+
+  /// Removes the hyperlink associated with this [AnsiText].
+  void clearHyperlink() {
+    _hyperlink = null;
+  }
+
+  /// Clears all styles and hyperlinks applied to this [AnsiText].
+  void clear() {
+    clearStyles();
+    clearHyperlink();
   }
 
   /// Returns the string representation including the requested ANSI escape

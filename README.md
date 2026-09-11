@@ -28,11 +28,20 @@ print(text);
 When applying multiple style attributes to a single `AnsiText` object, the `applyAll` method can be convenient:
 ```dart
 AnsiText('Hello, world')
-..applyAll({
+  ..applyAll([
     Styles.markup.bold,
     Styles.color.text.bright.yellow,
     Styles.color.background.red,
-});
+  ]);
+```
+
+Alternatively, you can initialize an `AnsiText` object directly with styles using `AnsiText.styled`:
+```dart
+final text = AnsiText.styled('Hello, world', [
+  Styles.markup.bold,
+  Styles.color.text.bright.yellow,
+  Styles.color.background.red,
+]);
 ```
 
 Note that the `Styles` class is structured in such a way that it provides out-of-the-box command completion in an IDE, allowing for

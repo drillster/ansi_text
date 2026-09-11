@@ -211,5 +211,62 @@ void main() {
         expect(textWithLink.hyperlinkUri, equals(uri));
       });
     });
+
+    group('styled constructor', () {
+      test('applies provided styles to text', () {
+        final text = AnsiText.styled('hello', [
+          Styles.markup.bold,
+          Styles.color.text.red,
+        ]);
+
+        expect(text.text, 'hello');
+        expect(text.styles, [Styles.markup.bold, Styles.color.text.red]);
+        expect(text.toString(), '\x1B[1;31mhello\x1B[22;39m');
+      });
+
+      test('works with null or omitted styles', () {
+        final text = AnsiText.styled('plain');
+        expect(text.text, 'plain');
+        expect(text.styles, isEmpty);
+        expect(text.toString(), 'plain');
+      });
+    });
+
+    group('clearing styles and hyperlinks', () {
+      test('clearStyles removes all applied styles', () {
+        final text = AnsiText('hello')
+          ..bold()
+          ..red();
+        expect(text.styles, isNotEmpty);
+
+        text.clearStyles();
+        expect(text.styles, isEmpty);
+        expect(text.toString(), 'hello');
+      });
+
+      test('clearHyperlink removes attached hyperlink', () {
+        final text = AnsiText('link')
+          ..hyperlink(Uri.parse('https://example.com'));
+        expect(text.hyperlinkUri, isNotNull);
+
+        text.clearHyperlink();
+        expect(text.hyperlinkUri, isNull);
+        expect(text.toString(), 'link');
+      });
+
+      test('clear removes both styles and hyperlinks', () {
+        final text = AnsiText('styled link')
+          ..bold()
+          ..hyperlink(Uri.parse('https://example.com'));
+
+        expect(text.styles, isNotEmpty);
+        expect(text.hyperlinkUri, isNotNull);
+
+        text.clear();
+        expect(text.styles, isEmpty);
+        expect(text.hyperlinkUri, isNull);
+        expect(text.toString(), 'styled link');
+      });
+    });
   });
 }

@@ -10,6 +10,10 @@ topics:
   - styling
   - formatting
 
+screenshots:
+  - description: 'Terminal output demonstrating text markup, 8-bit RGB palettes, grayscale, and 24-bit truecolor.'
+    path: examples.png
+
 environment:
   sdk: '>=3.4.0 <4.0.0'
 

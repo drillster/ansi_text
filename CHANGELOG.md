@@ -1,4 +1,9 @@
 # Changelog
+#### Upcoming
+- Add `screenshots` metadata to `pubspec.yaml`
+- Add `AnsiText.styled` constructor
+- Add `clearStyles`, `clearHyperlink`, and `clear` convenience methods to `AnsiText`
+
 #### 1.3.0
 - Add hashCode and equals to `Style`
 - Remove obsolete linter rules
