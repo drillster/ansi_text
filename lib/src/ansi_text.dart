@@ -14,6 +14,15 @@ class AnsiText {
   final _styles = <Style>[];
   Uri? _hyperlink;
 
+  /// The unstyled raw text.
+  String get text => _text;
+
+  /// An unmodifiable view of the styles currently applied.
+  List<Style> get styles => List.unmodifiable(_styles);
+
+  /// The hyperlink associated with this text, if any.
+  Uri? get hyperlinkUri => _hyperlink;
+
   static const _esc = '\u{1B}';
   static const _bel = '\u{7}';
 

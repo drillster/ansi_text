@@ -7,6 +7,7 @@
 - Deduplicate reset codes when multiple styles share the same reset
 - Reduce example image file size
 - Optimize linter rules
+- Add `text`, `styles`, and `hyperlinkUri` getters to `AnsiText`
 
 #### 1.2.0
 - Add support for OSC 8 hyperlinks

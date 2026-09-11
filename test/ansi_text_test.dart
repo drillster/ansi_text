@@ -185,5 +185,31 @@ void main() {
 
       expect(a, equals(b));
     });
+
+    group('getters', () {
+      test('text returns raw unstyled string', () {
+        final text = AnsiText('hello world')..bold();
+        expect(text.text, 'hello world');
+      });
+
+      test('styles returns an unmodifiable list of applied styles', () {
+        final text = AnsiText('styled')
+          ..bold()
+          ..red();
+        expect(text.styles, [Styles.markup.bold, Styles.color.text.red]);
+
+        expect(() => text.styles.add(Styles.markup.italic),
+            throwsUnsupportedError);
+      });
+
+      test('hyperlinkUri returns the attached Uri or null', () {
+        final textWithoutLink = AnsiText('no link');
+        expect(textWithoutLink.hyperlinkUri, isNull);
+
+        final uri = Uri.parse('https://example.com');
+        final textWithLink = AnsiText('link')..hyperlink(uri);
+        expect(textWithLink.hyperlinkUri, equals(uri));
+      });
+    });
   });
 }
