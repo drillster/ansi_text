@@ -3,6 +3,7 @@
 - Add hashCode and equals to `Style`
 - Remove obsolete linter rules
 - Allow `applyAll` to deal with sets and lists
+- Fix error in example code
 
 #### 1.2.0
 - Add support for OSC 8 hyperlinks

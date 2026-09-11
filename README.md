@@ -70,7 +70,7 @@ Hyperlinks can be combined with SGR styling:
 ```dart
 final text = AnsiText('Important link')
   ..bold()
-  ..color(Styles.color.text.bright.yellow)
+  ..brightYellow()
   ..hyperlink(Uri.parse('https://github.com/drillster/ansi_text'));
 
 print(text);
