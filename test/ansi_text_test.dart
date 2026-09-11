@@ -3,6 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('AnsiText', () {
+    tearDown(() {
+      AnsiText.enabled = true;
+    });
+
     test('defaults to empty text without reset sequence', () {
       final text = AnsiText();
       expect(text.toString(), isEmpty);
@@ -56,6 +60,8 @@ void main() {
     test(
         'turning off ANSI formatting suppresses escape codes for both formatting and hyperlinking',
         () {
+      addTearDown(() => AnsiText.enabled = true);
+
       final text = AnsiText('hello');
       expect(text.toString(), 'hello');
       final style = Styles.color.text.red;
