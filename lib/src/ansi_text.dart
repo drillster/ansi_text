@@ -25,7 +25,7 @@ class AnsiText {
   }
 
   /// Applies a collection of style properties.
-  void applyAll(Set<Style>? styles) {
+  void applyAll(Iterable<Style>? styles) {
     styles?.forEach(apply);
   }
 

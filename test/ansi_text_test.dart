@@ -81,12 +81,22 @@ void main() {
       expect(text.toString(), '\x1B[31mhello\x1B[39m');
     });
 
-    test('applies multiple styles in iteration order', () {
+    test('applies multiple styles in iteration order using a set', () {
       final text = AnsiText('hello')
         ..applyAll({
           Styles.markup.bold,
           Styles.color.text.red,
         });
+      final result = text.toString();
+      expect(result, '\x1B[1;31mhello\x1B[22;39m');
+    });
+
+    test('applies multiple styles in iteration order using a list', () {
+      final text = AnsiText('hello')
+        ..applyAll([
+          Styles.markup.bold,
+          Styles.color.text.red,
+        ]);
       final result = text.toString();
       expect(result, '\x1B[1;31mhello\x1B[22;39m');
     });
