@@ -72,8 +72,9 @@ class AnsiText {
   String _escapeCodesFromStyles(List<Style> styles) =>
       styles.isEmpty ? '' : '$_esc[${styles.map((s) => s.activate).join(';')}m';
 
-  String _resetCodesFromStyles(List<Style> styles) =>
-      styles.isEmpty ? '' : '$_esc[${styles.map((s) => s.reset).join(';')}m';
+  String _resetCodesFromStyles(List<Style> styles) => styles.isEmpty
+      ? ''
+      : '$_esc[${styles.map((s) => s.reset).toSet().join(';')}m';
 
   String _osc8Open(Uri uri) => '$_esc]8;;$uri$_bel';
   String _osc8Close() => '$_esc]8;;$_bel';

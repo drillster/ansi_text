@@ -113,6 +113,23 @@ void main() {
       expect(text.toString(), '\x1B[1;3mhello\x1B[22;23m');
     });
 
+    test('deduplicates reset codes when multiple styles share the same reset',
+        () {
+      final text = AnsiText('hello')
+        ..bold()
+        ..faint()
+        ..red()
+        ..yellow();
+      expect(text.toString(), '\x1B[1;2;31;33mhello\x1B[22;39m');
+    });
+
+    test('deduplicates background color reset codes', () {
+      final text = AnsiText('hello')
+        ..bgRed()
+        ..bgBlue();
+      expect(text.toString(), '\x1B[41;44mhello\x1B[49m');
+    });
+
     test('equality is based on text, styles and hyperlink', () {
       final a = AnsiText('hello')
         ..apply(Styles.color.text.red)
