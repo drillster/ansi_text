@@ -115,6 +115,23 @@ void main() {
       expect(a.hashCode, equals(b.hashCode));
     });
 
+    test('equality with dynamically generated styles', () {
+      final a = AnsiText('hello')..apply(Styles.color.text.rgb(1, 2, 3));
+      final b = AnsiText('hello')..apply(Styles.color.text.rgb(1, 2, 3));
+
+      expect(a, equals(b));
+      expect(a.hashCode, equals(b.hashCode));
+    });
+
+    test('applying dynamically generated style twice has no additional effect',
+        () {
+      final text = AnsiText('hello')
+        ..apply(Styles.color.text.rgb(1, 2, 3))
+        ..apply(Styles.color.text.rgb(1, 2, 3));
+
+      expect(text.toString(), '\x1B[38;5;67mhello\x1B[39m');
+    });
+
     test('inequality when applied styles differ', () {
       final a = AnsiText('hello')..apply(Styles.color.text.red);
       final b = AnsiText('hello')..apply(Styles.color.text.blue);

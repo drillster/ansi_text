@@ -180,4 +180,36 @@ void main() {
       expect(Styles.color.text.trueColor(-1, 300, 42).reset, '39');
     });
   });
+
+  group('Style equality and hashCode', () {
+    test('styles with same activate and reset codes are equal', () {
+      const a = Style('1', '22');
+      final b = Style('1'.toString(), '22'.toString());
+
+      expect(a, equals(b));
+      expect(a.hashCode, equals(b.hashCode));
+    });
+
+    test('dynamically generated styles are equal when parameters match', () {
+      final a = Styles.color.text.rgb(1, 2, 3);
+      final b = Styles.color.text.rgb(1, 2, 3);
+
+      expect(a, equals(b));
+      expect(a.hashCode, equals(b.hashCode));
+    });
+
+    test('styles with different activate codes are not equal', () {
+      const a = Style('1', '22');
+      const b = Style('2', '22');
+
+      expect(a == b, isFalse);
+    });
+
+    test('styles with different reset codes are not equal', () {
+      const a = Style('31', '39');
+      const b = Style('31', '49');
+
+      expect(a == b, isFalse);
+    });
+  });
 }

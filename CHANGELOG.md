@@ -1,4 +1,7 @@
 # Changelog
+#### Upcoming
+- Add hashCode and equals to `Style`
+
 #### 1.2.0
 - Add support for OSC 8 hyperlinks
 

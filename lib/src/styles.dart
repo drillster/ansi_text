@@ -126,6 +126,16 @@ class Style {
 
   /// Represents the SGR control code to reset the style.
   final String reset;
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Style && activate == other.activate && reset == other.reset;
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hash(activate, reset);
 }
 
 const _defaultBackgroundColor = '49';
