@@ -1,5 +1,5 @@
 # Changelog
-#### Upcoming
+#### 1.3.0
 - Add hashCode and equals to `Style`
 - Remove obsolete linter rules
 - Allow `applyAll` to deal with sets and lists
