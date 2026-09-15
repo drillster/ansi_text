@@ -1,5 +1,5 @@
 # Changelog
-#### Upcoming
+#### 1.4.0
 - Add `screenshots` metadata to `pubspec.yaml`
 - Add `AnsiText.styled` constructor
 - Add `clearStyles`, `clearHyperlink`, and `clear` convenience methods to `AnsiText`
