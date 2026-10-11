@@ -47,6 +47,22 @@ final text = AnsiText.styled('Hello, world', [
 Note that the `Styles` class is structured in such a way that it provides out-of-the-box command completion in an IDE, allowing for
 fast entry and compile-time checking.
 
+### Conditional styling
+Passing `null` or `Styles.none` to `apply`, `applyAll`, or `AnsiText.styled` is treated as a no-op, making conditional styling concise:
+
+```dart
+text.apply(isError ? Styles.color.text.red : Styles.none);
+```
+
+This also works directly inside style collections:
+
+```dart
+final text = AnsiText.styled('Status', [
+  Styles.markup.bold,
+  isError ? Styles.color.text.red : null,
+]);
+```
+
 ### Shorthand methods
 Various shorthand methods for frequently used styles are provided. For example, instead of typing:
 ```dart
