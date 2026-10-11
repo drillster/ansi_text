@@ -1,5 +1,5 @@
 # Changelog
-#### Upcoming
+#### 1.5.0
 - Add `Styles.none`
 - Update `AnsiText.apply` to accept `Style?` and treat null as a no-op.
 - Update `AnsiText.applyAll` and `AnsiText.styled` to accept `Iterable<Style?>?`.
