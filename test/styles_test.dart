@@ -2,6 +2,10 @@ import 'package:ansi_text/ansi_text.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('Styles.none is null', () {
+    expect(Styles.none, isNull);
+  });
+
   group('Markup styles', () {
     test('bold', () {
       expect(Styles.markup.bold.activate, '1');

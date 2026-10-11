@@ -1,4 +1,9 @@
 # Changelog
+#### Upcoming
+- Add `Styles.none`
+- Update `AnsiText.apply` to accept `Style?` and treat null as a no-op.
+- Update `AnsiText.applyAll` and `AnsiText.styled` to accept `Iterable<Style?>?`.
+
 #### 1.4.0
 - Add `screenshots` metadata to `pubspec.yaml`
 - Add `AnsiText.styled` constructor

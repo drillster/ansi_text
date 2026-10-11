@@ -7,7 +7,7 @@ class AnsiText {
   AnsiText([this._text = '']);
 
   /// Creates a new [AnsiText] with [text] and applies [styles].
-  AnsiText.styled(this._text, [Iterable<Style>? styles]) {
+  AnsiText.styled(this._text, [Iterable<Style?>? styles]) {
     applyAll(styles);
   }
 
@@ -31,15 +31,15 @@ class AnsiText {
   static const _esc = '\u{1B}';
   static const _bel = '\u{7}';
 
-  /// Applies a style property.
-  void apply(Style style) {
-    if (!_styles.contains(style)) {
+  /// Applies a style property. If [style] is `null`, this is a no-op.
+  void apply(Style? style) {
+    if (style != null && !_styles.contains(style)) {
       _styles.add(style);
     }
   }
 
   /// Applies a collection of style properties.
-  void applyAll(Iterable<Style>? styles) {
+  void applyAll(Iterable<Style?>? styles) {
     styles?.forEach(apply);
   }
 

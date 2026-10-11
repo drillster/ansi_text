@@ -25,6 +25,18 @@ void main() {
       expect(text.toString(), '\x1B[31mhello\x1B[39m');
     });
 
+    test('apply with null does nothing', () {
+      final text = AnsiText('hello')..apply(null);
+      expect(text.styles, isEmpty);
+      expect(text.toString(), 'hello');
+    });
+
+    test('apply with Styles.none does nothing', () {
+      final text = AnsiText('hello')..apply(Styles.none);
+      expect(text.styles, isEmpty);
+      expect(text.toString(), 'hello');
+    });
+
     test('applies a hyperlink, but no styles', () {
       final text = AnsiText('example');
       expect(text.toString(), 'example');
@@ -110,6 +122,18 @@ void main() {
     test('applyAll with null does nothing', () {
       final text = AnsiText('hello')..applyAll(null);
       expect(text.toString(), 'hello');
+    });
+
+    test('applyAll containing null elements ignores them', () {
+      final text = AnsiText('hello')
+        ..applyAll([
+          Styles.markup.bold,
+          null,
+          Styles.none,
+          Styles.color.text.red,
+        ]);
+      expect(text.styles, [Styles.markup.bold, Styles.color.text.red]);
+      expect(text.toString(), '\x1B[1;31mhello\x1B[22;39m');
     });
 
     test('styles are combined (appended, not prepended)', () {
@@ -229,6 +253,19 @@ void main() {
         expect(text.text, 'plain');
         expect(text.styles, isEmpty);
         expect(text.toString(), 'plain');
+      });
+
+      test('ignores null elements in styles list', () {
+        final text = AnsiText.styled('hello', [
+          Styles.markup.bold,
+          null,
+          Styles.none,
+          Styles.color.text.red,
+        ]);
+
+        expect(text.text, 'hello');
+        expect(text.styles, [Styles.markup.bold, Styles.color.text.red]);
+        expect(text.toString(), '\x1B[1;31mhello\x1B[22;39m');
       });
     });
 

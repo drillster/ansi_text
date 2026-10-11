@@ -1,6 +1,9 @@
 /// Represents the collection of styles that may be applied to an `AnsiText`
 /// object.
 class Styles {
+  /// Represents no style.
+  static const Style? none = null;
+
   /// Contains the "markup" styles.
   static const markup = _Markup();
 
